@@ -1,0 +1,81 @@
+<section class="sct-color-1 slice">
+  <div class="container-fluid masonry-container">
+    <div class="row">
+      <div class="col-md-8 col-sm-offset-2">
+        <div class="masonry-wrapper-cols">
+          <div class="masonry-gutter"></div>
+           <div class="masonry-block">
+              <div class="block block-image v1">
+                <div class="block-image">
+                  <div class="view view-first">
+                  	 </div>
+                </div>
+                <div class="block-content">
+                  <h3 class="block-title">
+                    <% @user.posts.each do |toukou| %>
+		                  <%= toukou.title %>
+                      <%= toukou.body %>
+	                      <%= link_to "詳細", public_post_path(toukou) %>
+	                      <%= link_to "編集", edit_public_post_path(toukou) %>
+	                  <% end %>
+                  </h3>
+                  <ul class="inline-meta">
+                <li>
+                 </li>
+                 <li>
+                  </li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<h1>ユーザー詳細</h1>
+
+<h2><%= @user.nickname %></h2>
+
+<% if @user.id == current_user.id %>
+
+<% else %>
+  <% if @isRoom == true %>
+    <p><a><%= link_to "チャットへ", public_room_path(@roomId) %></a>
+  <% else %>
+    <%= form_for @room, url: public_rooms_path do |f| %>
+      <%= fields_for @entry do |e| %>
+        <%= e.hidden_field :user_id, :value=> @user.id %>
+      <% end %>
+      <%= f.submit "チャットを始める" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= link_to "ユーザー一覧に戻る", public_users_path %>
+
+　<%= render 'follow_form' %>
+　　　<%= render 'stats' %>
+
+<% @user.followings.each do |user| %>
+<table>
+<tr>
+  <td>  <%= user.nickname %> </td>
+  <td><%= link_to '詳細', public_user_path(user) %></td>
+</tr>
+
+</table>
+<% end %>
+
+ <% @user.followers.each do |user| %>
+<table>
+<tr>
+  <td>  <%= user.nickname %> </td>
+  <td><%= link_to '詳細', public_user_path(user) %></td>
+</tr>
+
+</table>
+<% end %>
+
