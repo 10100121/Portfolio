@@ -1,3 +1,12 @@
-<h1>Users#out</h1>
-<p>Find me in app/views/users/out.html.erb</p>
-  <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+<div class="container">
+    <div class="row">
+       <div class="col-md-6"  style="margin:50px 350px; padding:100px; background-color: white;">
+
+			<h1 class="text-center">本当に退会しますか？</h1>
+			<br>
+			<div class="text-center">
+			<%= link_to "ログアウト", destroy_user_session_path, :method => :delete {confirm: '本当に退会しますか？？？？？？？？？？'}, class:"btn btn-danger" %>
+			</div>
+        </div>
+    </div>
+</div>

@@ -38,12 +38,17 @@ class Public::PostsController < Public::ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:id])
+
+    @post.destroy
+    flash[:notice] = "Comment was successfully destroyed."
+    redirect_to public_posts_path(@post)
   end
 
   private
 
   def post_params
-     params.require(:post).permit(:title, :body)
+     params.require(:post).permit(:title, :body, :image)
   end
 end
 

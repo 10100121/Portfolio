@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 get 'comments/edit'
-
+root to: 'public/users#index'
 
 namespace :public do
   resources :users, :only => [:edit, :show, :update, :destroy, :index]
@@ -23,7 +23,7 @@ namespace :public do
 end
 
 namespace :admin do
-  resources :users, :only => [:index, :destroy, :update, :edit]
+  resources :users, :only => [:index, :destroy, :update, :edit, :new]
 end
 
   devise_for :admin_users, ActiveAdmin::Devise.config

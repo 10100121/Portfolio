@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   has_many :nices, dependent: :destroy
   has_many :iine_users, through: :likes, source: :user
   has_many :comments, dependent: :destroy
+  attachment :image
 
   def niced_by?(user)
     nices.where(user_id: user.id).exists?

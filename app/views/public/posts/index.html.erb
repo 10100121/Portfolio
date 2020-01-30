@@ -1,11 +1,9 @@
 <h2>投稿一覧</h2>
   <% @posts.each do |post| %>
     <%= link_to "#{post.user.nickname}", public_user_path(post.user.id) %></p>
-    <%= link_to "#{post.title}", public_user_path(post.id) %></p>
+    <%= link_to "#{post.title}", public_post_path(post.id) %></p>
     (<%= post.nices.count %>)
   <% end %>
 
-  <%= link_to "ユーザー登録", new_user_registration_path %>
-  <%= link_to "ログイン", new_user_session_path %>
 
 

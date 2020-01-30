@@ -65,13 +65,13 @@ gem 'devise'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'rails-i18n'
-gem 'jquery-rails'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'rails-i18n'
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'bootstrap', '~> 4.1.1'
+gem 'jquery-rails'
 gem 'ransack'
 gem 'pry-byebug', group: :development
 gem 'font-awesome-sass', '~> 5.4.1'
@@ -79,5 +79,8 @@ gem 'counter_culture', '~> 1.8'
 gem 'will_paginate', '3.1.7'
 gem 'bootstrap-will_paginate', '1.0.0'
 
+group :production do
+  gem 'mysql2'
+end
 
 

@@ -25,6 +25,6 @@
 #検索結果
 <% if @users.any? %>
  <% @users.each do |result| %>
-   <p><%= result.nickname %></p>
+  <p><%= link_to "#{result.nickname}", public_user_path(result.id) %>さん</a></p>
  <% end %>
 <% end %>
