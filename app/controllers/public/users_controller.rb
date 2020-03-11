@@ -1,5 +1,6 @@
 class Public::UsersController < Public::ApplicationController
     before_action :authenticate_user!, :only => [:show]
+    before_action :current_user, only: [:show, :edit, :update , :destroy]
 
   def edit
     @user = User.find(params[:id])

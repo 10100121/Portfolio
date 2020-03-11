@@ -1,53 +1,81 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Portfolio3</title>
+    <title>portfolio</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href=""><%= link_to"hobby", public_users_path %></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <h4 class="nav navbar-nav navbar-left">hobby</h4>
+        <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#"><%= link_to"Home", public_posts_path(current_user.posts) %> <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+          <li>
+            <%= link_to public_user_path(current_user.id), class: "my-bt" do %>
+              <i class="glyphicon glyphicon-home text-muted"> Home</i>
+              <% end %>
+          </li>
+
+          <li>
+            <%= link_to public_users_path, class: "my-bt" do %>
+            <i class="glyphicon glyphicon-user text-muted"> Users</i>
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to public_posts_path, class: "my-bt" do %>
+              <i class="glyphicon glyphicon-book text-muted"> Posts</i>
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to destroy_user_session_path,class: "my-bt", method: :delete do %>
+              <i class="glyphicon glyphicon-log-out text-muted"> logout</i>
+            <% end %>
+          </li>
+
+        <% else %>
+
+          <li>
+            <%= link_to root_path, class: "my-bt" do %>
+              <i class="glyphicon glyphicon-home text-muted"> Home</i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_registration_path, class: "my-bt" do %>
+              <i class="glyphicon glyphicon-edit text-muted"> Sign up</i>
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to user_session_path, class: "my-bt", method: :post do %>
+              <i class="glyphicon glyphicon-log-in text-muted"> login</i>
+            <% end %>
+          </li>
+
+        <% end %>
+      </ul>
+    </div>
+  </header>
+
+<body class="margin">
+  <%= yield %>
+</body>
 
 
-  <body>
-    <%= yield %>
-  </body>
+<footer>
+<div class="container">
+<div class="row">
+  <h5 class="col-lg-offset-10 col-lg-2">CopyRighthobby.inc</h5>
+</div>
+</div>
+</footer>
+
 </html>
 

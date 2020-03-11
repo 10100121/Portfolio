@@ -4,8 +4,8 @@ class CreateDms < ActiveRecord::Migration[5.2]
 
       t.datetime :created_at, null: false
       t.datetime :updated_at, null: false
-      t.references :user, foreign_key: true
-      t.references :room, foreign_key: true
+      t.integer :user_id
+      t.integer :room_id
       t.text :content
 
       t.timestamps
