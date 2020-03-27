@@ -1,30 +1,38 @@
-<h1>ユーザー一覧</h1>
-<% if user_signed_in? %>
-<h2>Hello <%= current_user.nickname %></h2>
-  <% @user.each do |u| %>
-  <p><%= link_to "#{u.nickname}", public_user_path(u.id) %>さん</a></p>
-  <hr>
-  <% end %>
-  <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
-<% else %>
-  <%= link_to "ユーザーを登録する", new_user_registration_path %>
-  <br>
-  <%= link_to "ログインする", new_user_session_path %>
-<% end %>
+<div class="container">
+  <div class="row">
+   <div class="col-lg-3">
+   </div>
+    <div class="col-lg-9">
+          <h1>ユーザー一覧</h1>
+          <% if user_signed_in? %>
+          <h2>Hello <%= current_user.nickname %></h2>
+            <% @user.each do |u| %>
+            <p><%= link_to "#{u.nickname}", public_user_path(u.id) %>さん</a></p>
+            <hr>
+            <% end %>
+            <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+          <% else %>
+            <%= link_to "ユーザーを登録する", new_user_registration_path %>
+            <br>
+            <%= link_to "ログインする", new_user_session_path %>
+          <% end %>
 
 
 
-<%= search_form_for @q, url: public_users_path  do |f| %>
- <div class="form-group">
-   <%= f.label :nickname_cont, "Name" %>
-   <%= f.search_field :nickname_cont, class: "form-control" %>
- </div>
- <div class="actions"><%= f.submit "Search" %></div>
-<% end %>
+          <%= search_form_for @q, url: public_users_path  do |f| %>
+           <div class="form-group">
+             <%= f.label :nickname_cont, "Name" %>
+             <%= f.search_field :nickname_cont, class: "form-control" %>
+           </div>
+           <div class="actions"><%= f.submit "Search" %></div>
+          <% end %>
 
-#検索結果
-<% if @users.any? %>
- <% @users.each do |result| %>
-  <p><%= link_to "#{result.nickname}", public_user_path(result.id) %>さん</a></p>
- <% end %>
-<% end %>
+          #検索結果
+          <% if @users.any? %>
+           <% @users.each do |result| %>
+            <p><%= link_to "#{result.nickname}", public_user_path(result.id) %>さん</a></p>
+           <% end %>
+          <% end %>
+    </div>
+  </div>
+</div>

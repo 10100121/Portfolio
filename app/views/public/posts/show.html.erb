@@ -2,124 +2,103 @@
 	<div class="row">
 		<div class="col-lg-3">
 		</div>
+			<div class="col-lg-9">
+						<h1>post</h1>
+							<table class="table">
+							  <tr>
+							   <td>
+								<%= link_to public_user_path(@post.user.id) do %>
+							    <% end %>
+								<p><%= link_to "#{@post.user.nickname}", public_user_path(@post.user.id) %></p>
+								   <td><%= @post.body %>
+			                        <% if @post.user.id == current_user.id %>
+									  <td><%= link_to "Edit", edit_public_post_path(@post.id), class:"btn btn-success" %>
+									    <%= link_to "Destroy", public_post_path(@post.id), method: :delete, "data-confirm" => "本当に消しますか？", class:"btn btn-danger" %>
+									<% end %>
+							</table>
+							<ul class="list-inline">
+										<li><i class="fa fa-comment text-muted" aria-hidden="true"><%= @post.comments.count %></i>
 
-		<div class="col-lg-9">
-			<h1>post</h1>
-				<table class="table">
-					<tr>
-						<td>
-							<%= link_to public_user_path(@post.user.id) do %>
+					              <% if @post.niced_by?(current_user) %>
 
-							<% end %>
-							<p><%= link_to "#{@post.user.nickname}", public_user_path(@post.user.id) %></p>
+					                  <li><%= link_to public_post_nice_path(@post, current_user.nices.find_by(post_id: @post.id)), method: :delete do %>
+					                      <i class="fa fa-heart text-danger" aria-hidden="true" style="color: #FF66FF;">
+					                      <%= @post.nices.count %></i>
+					                      <% end %>
+					              <% else %>
+					                    <li><%= link_to public_post_nices_path(@post), method: :create do %>
+					                      <i class="fa fa-heart text-muted" aria-hidden="true">
+					                      <%= @post.nices.count %></i>
+					                    <% end %>
+					              <% end %>
 
 
+									<%= link_to "ホームへ戻る", public_posts_path %>
+									</ul>
 
-						<td><%= @post.body %>
 
-						<% if @post.user.id == current_user.id %>
-						<td><%= link_to "Edit", edit_public_post_path(@post.id), class:"btn btn-success" %>
-							<%= link_to "Destroy", public_post_path(@post.id), method: :delete, "data-confirm" => "本当に消しますか？", class:"btn btn-danger" %>
+			          <h4>コメント投稿</h4>
+
+			          <%= form_for [:public,@post, @commentnew] do |f| %>
+			          	<% if @commentnew.errors.any? %>
+			    		  <div class="text-danger">
+			      			<ul>
+			        		  <h3>
+			        		  	<%= @commentnew.errors.count %>errors prohibited this user from being saved:</h3>
+				      				</ul>
+				      				  <ul>
+				        				<% @commentnew.errors.full_messages.each do |msg| %>
+				        					<p><%= msg %></p>
+				        				<% end %>
+				      				  </ul>
+			  					<% end %>
+
+			  				 <%= f.text_field :conversation %>
+			          	     <%= f.submit "送信する", class: "btn btn-primary" %>
+			  			<% end %>
+
+						<% if @post.comments.count != 0 %>
+						   <h3>Comment List</h3>
+						     <table class="table">
+								<thead>
+								  <th>User<th>Comment<th>
+								</thead>
+								  <% @post.comments.each do |comment| %>
+									 <tbody>
+										 <tr>
+										  <td>
+							          		<p><%= link_to "#{comment.user.nickname}", public_user_path(comment.user) %></p>
+							          	  <td>
+							          		<%= comment.conversation %>
+										  <td>
+							          		<% if comment.user.id == current_user.id %>
+											 <%= link_to "Edit",  edit_public_post_comment_path(@post.id,comment.id), class:"btn btn-success" %>
+											<% end %>
+										  <td>
+											<% if comment.user.id == current_user.id %>
+											 <%= link_to "Destroy", public_post_comment_path(@post.id,comment.id), method: :delete, "data-confirm" => "本当に消しますか？", class:"btn btn-danger" %>
+											<% end %>
+							     	 </tbody>
+							      <% end %>
+							 </table>
 						<% end %>
-				</table>
-				<ul class="list-inline">
-							<li><i class="fa fa-comment text-muted" aria-hidden="true"><%= @post.comments.count %></i>
-
-              <% if @post.niced_by?(current_user) %>
-
-                  <li><%= link_to public_post_nice_path(@post, current_user.nices.find_by(post_id: @post.id)), method: :delete do %>
-                      <i class="fa fa-heart text-danger" aria-hidden="true" style="color: #FF66FF;">
-                      <%= @post.nices.count %></i>
-                    <% end %>
-              <% else %>
-                    <li><%= link_to public_post_nices_path(@post), method: :create do %>
-                      <i class="fa fa-heart text-muted" aria-hidden="true">
-                      <%= @post.nices.count %></i>
-                    <% end %>
-              <% end %>
-
-
-						<%= link_to "ホームへ戻る", public_posts_path %>
-						</ul>
-
-
-          <h4>コメント投稿</h4>
-
-          <%= form_for [:public,@post, @commentnew] do |f| %>
-
-
-          	<% if @commentnew.errors.any? %>
-    						<div class="text-danger">
-      						<ul>
-        						<h3><%= @commentnew.errors.count %>errors prohibited this user from being saved:
-      						</h3></ul>
-      						<ul>
-        						<% @commentnew.errors.full_messages.each do |msg| %>
-        							<p><%= msg %></p>
-        						<% end %>
-      						</ul>
-    						</div>
-  					<% end %>
-  				 <%= f.text_field :conversation %>
-
-          	     <%= f.submit "送信する", class: "btn btn-primary" %>
-  					<% end %>
-
-<% if @post.comments.count != 0 %>
-        <h3>Comment List</h3>
-				<table class="table">
-					<thead>
-						<th>User<th>Comment<th>
-					</thead>
-
-				<% @post.comments.each do |comment| %>
-
-				<tbody>
-					<tr>
-						<td>
-
-          		<p><%= link_to "#{comment.user.nickname}", public_user_path(comment.user) %></p>
-
-          	<td>
-          		<%= comment.conversation %>
-
-						<td>
-          		<% if comment.user.id == current_user.id %>
-							<%= link_to "Edit",  edit_public_post_comment_path(@post.id,comment.id), class:"btn btn-success" %>
-							<% end %>
-
-						<td>
-							<% if comment.user.id == current_user.id %>
-							<%= link_to "Destroy", public_post_comment_path(@post.id,comment.id), method: :delete, "data-confirm" => "本当に消しますか？", class:"btn btn-danger" %>
-							<% end %>
-
-        	<% end %>
-     		</tbody>
-			</table>
-<% end %>
-
-<% if @post.nices.count != 0 %>
-        <h3>Favorite User List</h3>
-				<table class="table">
-					<thead>
-						<th>User<th>Introduction<th>
-					</thead>
-
-				<% @post.nices.each do |nice| %>
-
-				<tbody>
-					<tr>
-						<td>
-
-          		<p><%= link_to "#{nice.user.nickname}", public_user_path(nice.user) %></p>
-
-
-        	<% end %>
-     		</tbody>
-			</table>
-<% end%>
-		</div>
+						<% if @post.nices.count != 0 %>
+						   <h3>Favorite User List</h3>
+							 <table class="table">
+								   <thead>
+									 <th>User<th>Introduction<th>
+								   </thead>
+							    <% @post.nices.each do |nice| %>
+							     <tbody>
+									<tr>
+									 <td>
+						          		<p><%= link_to "#{nice.user.nickname}", public_user_path(nice.user) %></p>
+						        	<% end %>
+						     	  </tbody>
+							 </table>
+						<% end%>
+		    </div>
 	</div>
-
+</div>
 
 

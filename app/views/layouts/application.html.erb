@@ -9,73 +9,70 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
-
-  <header class="navbar navbar-fixed-top navbar-inverse">
-    <div class="container">
-      <h4 class="nav navbar-nav navbar-left">hobby</h4>
-        <ul class="nav navbar-nav navbar-right">
+     <header>
+      <h1 class="headline">
+        <%= link_to public_users_path, class: "my-bt" do %>
+          <a>hobby</a>
+        <% end %>
+      <h1>
+     </header>
         <% if user_signed_in? %>
-
-          <li>
-            <%= link_to public_user_path(current_user.id), class: "my-bt" do %>
+         <nav>
+          <ul class="nav-list">
+            <li class="nav-list-item">
+             <%= link_to public_user_path(current_user.id), class: "my-bt" do %>
               <i class="glyphicon glyphicon-home text-muted"> Home</i>
+             <% end %>
+            </li>
+            <li class="nav-list-item">
+             <%= link_to home_about_path, class: "my-bt" do %>
+              <i class="glyphicon glyphicon-user text-muted"> About</i>
+             <% end %>
+            </li>
+            <li class="nav-list-item">
+               <%= link_to public_users_path, class: "my-bt" do %>
+                <i class="glyphicon glyphicon-user text-muted"> Users</i>
+               <% end %>
+              </li>
+            <li class="nav-list-item">
+              <%= link_to public_posts_path, class: "my-bt" do %>
+               <i class="glyphicon glyphicon-book text-muted"> Posts</i>
               <% end %>
-          </li>
-
-          <li>
-            <%= link_to public_users_path, class: "my-bt" do %>
-            <i class="glyphicon glyphicon-user text-muted"> Users</i>
-            <% end %>
-          </li>
-
-          <li>
-            <%= link_to public_posts_path, class: "my-bt" do %>
-              <i class="glyphicon glyphicon-book text-muted"> Posts</i>
-            <% end %>
-          </li>
-
-          <li>
-            <%= link_to destroy_user_session_path,class: "my-bt", method: :delete do %>
-              <i class="glyphicon glyphicon-log-out text-muted"> logout</i>
-            <% end %>
-          </li>
+            </li>
+            <li class="nav-list-item">
+              <%= link_to destroy_user_session_path,class: "my-bt", method: :delete do %>
+                <i class="glyphicon glyphicon-log-out text-muted"> logout</i>
+              <% end %>
+            </li>
+          </ul>
+         </nav>
 
         <% else %>
-
-          <li>
-            <%= link_to root_path, class: "my-bt" do %>
-              <i class="glyphicon glyphicon-home text-muted"> Home</i>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to new_user_registration_path, class: "my-bt" do %>
-              <i class="glyphicon glyphicon-edit text-muted"> Sign up</i>
-            <% end %>
-          </li>
-
-          <li>
-            <%= link_to user_session_path, class: "my-bt", method: :post do %>
-              <i class="glyphicon glyphicon-log-in text-muted"> login</i>
-            <% end %>
-          </li>
-
+          <nav>
+           <ul class="nav-list">
+            <li class="nav-list-item">
+              <%= link_to root_path, class: "my-bt" do %>
+                <i class="glyphicon glyphicon-home text-muted"> Home</i>
+              <% end %>
+            </li>
+            <li class="nav-list-item">
+              <%= link_to new_user_registration_path, class: "my-bt" do %>
+                <i class="glyphicon glyphicon-edit text-muted"> Sign up</i>
+              <% end %>
+            </li>
+            <li class="nav-list-item">
+              <%= link_to user_session_path, class: "my-bt", method: :post do %>
+                <i class="glyphicon glyphicon-log-in text-muted"> login</i>
+              <% end %>
+            </li>
+           </ul>
+          </nav>
         <% end %>
-      </ul>
-    </div>
-  </header>
 
-<body class="margin">
-  <%= yield %>
-</body>
+  <body class="margin">
+    <%= yield %>
+  </body>
 
-
-<footer>
-<div class="container">
-<div class="row">
-  <h5 class="col-lg-offset-10 col-lg-2">CopyRighthobby.inc</h5>
-</div>
-</div>
-</footer>
 
 </html>
 

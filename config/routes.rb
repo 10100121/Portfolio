@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+get 'home/about' => 'homes#about'
 get 'comments/edit'
 root to: 'public/users#index'
 
