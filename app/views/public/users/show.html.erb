@@ -2,7 +2,7 @@
   <div class="row">
       <div class="col-sm-8"><%= attachment_image_tag @user, :profile_image, :fill, 200, 200, format: 'jpeg', class: "rounded-circle" %></div>
       <div class="col-sm-4"><a class="jouge"><%= render 'stats' %></a></div>
-   </div>
+  </div>
 
             <% if @user.id == current_user.id %>
 
@@ -19,7 +19,8 @@
                 <% end %>
               <% end %>
 
-              <%= link_to "ユーザー一覧に戻る", public_users_path %>
+              <%= link_to"ユーザー詳細変更", edit_public_user_path(@user.id) %>
+
 
               　<%= render 'follow_form' %>
 
@@ -42,7 +43,7 @@
                           <div class="block block-image v1">
                             <div class="block-image">
                               <div class="view view-first">
-                              	 </div>
+                                 </div>
                             </div>
                             <div class="block-content">
                               <h3 class="block-title">
@@ -50,11 +51,11 @@
                                   <%= link_to public_post_path(toukou) do %>
                                    <%= attachment_image_tag toukou, :image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img" %>
                                   <% end %>
-            		                  <%= toukou.title %>
+                                  <%= toukou.title %>
                                   <%= toukou.body %>
-            	                      <%= link_to "詳細", public_post_path(toukou) %>
-            	                      <%= link_to "編集", edit_public_post_path(toukou) %>
-            	                  <% end %>
+                                    <%= link_to "詳細", public_post_path(toukou) %>
+                                    <%= link_to "編集", edit_public_post_path(toukou) %>
+                                <% end %>
                               </h3>
                               <ul class="inline-meta">
                             <li>
@@ -72,4 +73,3 @@
               </div>
             </section>
 </div>
-
