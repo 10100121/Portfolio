@@ -79,8 +79,7 @@ gem 'counter_culture', '~> 1.8'
 gem 'will_paginate', '3.1.7'
 gem 'bootstrap-will_paginate', '1.0.0'
 
-group :production do
+
+group :production, :staging do
   gem 'mysql2'
 end
-
-
