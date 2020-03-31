@@ -20,7 +20,7 @@
               <% end %>
 
               <%= link_to"ユーザー詳細変更", edit_public_user_path(@user.id) %>
-              <%= link_to"新規投稿", new_public_post_path(@user.id) %>
+              <%= link_to"newpost", new_public_post_path(@user.id) %>
 
               　<%= render 'follow_form' %>
 
