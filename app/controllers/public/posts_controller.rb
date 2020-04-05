@@ -23,7 +23,7 @@ class Public::PostsController < Public::ApplicationController
   def update
     @post = Post.find(params[:id])
     @post.update(post_params)
-    redirect_to public_post_path(@post.id), flash:{success: "You have updated user successfully."}
+    redirect_to public_post_path(@post.id)
   end
 
   def create
