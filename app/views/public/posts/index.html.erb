@@ -7,7 +7,7 @@
 			  <% @posts.each do |post| %>
 			    <%= link_to "#{post.user.nickname}", public_user_path(post.user.id) %></p>
 			    <%= link_to "#{post.title}", public_post_path(post.id) %></p>
-			    (<%= post.nices.count %>)
+			    <%= post.nices.count %>
 			  <% end %>
     </div>
   </div>
